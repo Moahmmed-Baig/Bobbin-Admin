@@ -1,12 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
 import { stripe } from "@/lib/stripe";
 
-const headers = {
-    origin: "https://lush-admin.vercel.app"
-}
+const corsHeaders = {
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+    "Access-Control-Allow-Headers": "Content-Type, Authorization",
+};
 
 export async function OPTIONS() {
-    return NextResponse.json({}, { headers: headers });
+    return NextResponse.json({}, { headers: corsHeaders });
 }
 
 export async function POST(req: NextRequest) {
@@ -47,7 +49,7 @@ export async function POST(req: NextRequest) {
             cancel_url: `${process.env.ECOMMERCE_STORE_URL}/cart`,
         });
 
-        return NextResponse.json(session, { headers: headers });
+        return NextResponse.json(session, { headers: corsHeaders });
     } catch (err) {
         console.log("[checkout_POST]", err);
         return new NextResponse("Internal Server Error", { status: 500 });
