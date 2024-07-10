@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { stripe } from "@/lib/stripe";
 
-
 const corsHeaders = {
     "Access-Control-Allow-Origin": "*",
     "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
@@ -24,15 +23,15 @@ export async function POST(req: NextRequest) {
             payment_method_types: ["card"],
             mode: "payment",
             shipping_address_collection: {
-                allowed_countries: ["US"],
+                allowed_countries: ["US", "CA"],
             },
             shipping_options: [
                 { shipping_rate: "shr_1PPoRT2K2Y5NYy0GKvwBL349" },
-                { shipping_rate: "shr_1PPoSW2K2Y5NYy0GlzVJ84Hl" }
+                { shipping_rate: "shr_1PPoSW2K2Y5NYy0GlzVJ84Hl" },
             ],
             line_items: cartItems.map((cartItem: any) => ({
                 price_data: {
-                    currency: "usd",
+                    currency: "cad",
                     product_data: {
                         name: cartItem.item.title,
                         metadata: {
@@ -56,5 +55,3 @@ export async function POST(req: NextRequest) {
         return new NextResponse("Internal Server Error", { status: 500 });
     }
 }
-
-export const dynamic = "force-dynamic";
