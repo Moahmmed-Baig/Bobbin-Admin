@@ -12,8 +12,8 @@ import { ToasterProvider } from "@/lib/ToasterProvider";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-    title: "Maven - Admin ",
-    description: "Admin Dashboard to Manage Maven's Data",
+    title: "Bobbin - Admin ",
+    description: "Admin Dashboard to Manage Bobbin's Data",
 };
 
 export default function RootLayout({
